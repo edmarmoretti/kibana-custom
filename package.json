@@ -77,25 +77,9 @@
     "yarn": "^1.22.19"
   },
   "resolutions": {
-    "**/@bazel/typescript/protobufjs": "6.11.4",
-    "**/@hello-pangea/dnd": "16.6.0",
-    "**/@langchain/core": "^0.3.16",
-    "**/@langchain/google-common": "^0.1.1",
-    "**/@types/node": "20.10.5",
-    "**/@typescript-eslint/utils": "5.62.0",
-    "**/chokidar": "^3.5.3",
-    "**/d3-scale/**/d3-color": "npm:@elastic/kibana-d3-color@2.0.1",
-    "**/globule/minimatch": "^3.1.2",
-    "**/hoist-non-react-statics": "^3.3.2",
-    "**/isomorphic-fetch/node-fetch": "^2.6.7",
-    "**/langchain": "^0.3.5",
-    "**/remark-parse/trim": "1.0.1",
-    "**/sharp": "0.32.6",
-    "**/typescript": "5.1.6",
     "@storybook/react-docgen-typescript-plugin": "1.0.6--canary.9.cd77847.0",
     "@types/react": "~18.2.0",
     "@types/react-dom": "~18.2.0",
-    "@xstate5/react/**/xstate": "^5.18.1",
     "globby/fast-glob": "^3.2.11"
   },
   "dependencies": {
@@ -1851,5 +1835,5 @@
     "yarn-deduplicate": "^6.0.2",
     "zod-to-json-schema": "^3.23.0"
   },
-  "packageManager": "yarn@1.22.21"
+  "packageManager": "yarn@1.22.18"
 }
