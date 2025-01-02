@@ -233,7 +233,7 @@ export class DashboardPlugin
     this.stopUrlTracking = () => {
       stopUrlTracker();
     };
-//Edmar Moretti - tradução
+//Edmar Moretti - tradução dos textos do menu principal à esquerda
     const app: App = {
       id: DASHBOARD_APP_ID,
       title: 'Painéis',

@@ -83,12 +83,16 @@ export const PresentationPanelTitle = ({
   hideTitle,
   panelTitle,
   panelDescription,
+  panelTitleNotes,
+  panelTitleSummary,
 }: {
   api: unknown;
   hideTitle?: boolean;
   panelTitle?: string;
   panelDescription?: string;
   viewMode?: ViewMode;
+  panelTitleNotes?: string;
+  panelTitleSummary?: string;
 }) => {
   const [panelTitleElmRef, setPanelTitleElmRef] = useState<HTMLElement | null>(null);
   const panelTitleElement = useMemo(() => {
@@ -142,7 +146,7 @@ export const PresentationPanelTitle = ({
     return (
       <EuiToolTip
         title={!hideTitle ? panelTitle || undefined : undefined}
-        content={panelDescription}
+        content={!hideTitle ? panelDescription || undefined : undefined}
         delay="regular"
         position="top"
         anchorClassName="embPanel__titleTooltipAnchor"

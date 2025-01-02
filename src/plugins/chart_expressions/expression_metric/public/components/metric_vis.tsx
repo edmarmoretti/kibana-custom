@@ -210,10 +210,25 @@ export const MetricVis = ({
   ).map((row, rowIdx) => {
     const value: number | string =
       row[primaryMetricColumn.id] !== null ? row[primaryMetricColumn.id] : NaN;
+    //Edmar Moretti - quebra o título em subtitulo caso existam 2 níveis de quebra 
+    /*
     const title = breakdownByColumn
       ? formatBreakdownValue(row[breakdownByColumn.id])
       : primaryMetricColumn.name;
     const subtitle = breakdownByColumn ? primaryMetricColumn.name : config.metric.subtitle;
+    */
+    //O título será quebrado caso contenha mais de um nível e o título da métrica for espaço em branco
+    let title = breakdownByColumn
+      ? formatBreakdownValue(row[breakdownByColumn.id])
+      : primaryMetricColumn.name;
+
+    let subtitle = breakdownByColumn ? primaryMetricColumn.name : config.metric.subtitle;
+
+    if(title.split(' › ').length > 1 && (subtitle == undefined || subtitle?.trim() == '')){
+      let splitvar = title.split(' › ');
+      title = splitvar[0];
+      subtitle = splitvar.splice(1).join(' › ');
+    }
 
     if (typeof value !== 'number') {
       const nonNumericMetricBase: Omit<MetricWText, 'value'> = {
@@ -317,7 +332,7 @@ export const MetricVis = ({
   }
 
   grid.current = newGrid;
-
+//Edmar Moretti - remove a opção de seleção em visualizações do tipo grande número
   return (
     <div
       ref={scrollContainerRef}
@@ -356,26 +371,7 @@ export const MetricVis = ({
             ]}
             baseTheme={chartBaseTheme}
             onRenderChange={onRenderChange}
-            onElementClick={
-              filterable
-                ? (events) => {
-                    const colRef = breakdownByColumn ?? primaryMetricColumn;
-                    const rowLength = grid.current[0].length;
-                    events.forEach((event) => {
-                      if (isMetricElementEvent(event)) {
-                        const colIdx = data.columns.findIndex((col) => col === colRef);
-                        fireEvent(
-                          buildFilterEvent(
-                            event.rowIndex * rowLength + event.columnIndex,
-                            colIdx,
-                            data
-                          )
-                        );
-                      }
-                    });
-                  }
-                : undefined
-            }
+            onElementClick={undefined}
             {...settingsOverrides}
           />
           <Metric id="metric" data={grid.current} />

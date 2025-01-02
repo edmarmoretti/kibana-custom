@@ -1,3 +1,70 @@
+# Alterações feitas no código original
+
+- Mudança no cache de persistência do código do Kibana de 360 para 1 dia
+
+- Nos grandes números (legado) não mostra o caractere "-" quando o título estiver em branco.
+
+- Impede que o painel seja filtrado nas interações com as visualizações.
+
+- Adiciona um número extra de cores para uso nas visualizações antigas.
+
+- Substitui o ícone de aplicar dos filtros por um botão com texto.
+
+- Apresenta a lista de itens em ordem alfabética nos controles.
+
+- Nos controles, exclui as opções "Incluir" e "excluir", o número de opções e o valor de número de registros de cada opção da lista..
+
+- Altera o parâmetro de configuração 'Store URLs in session storage' para true.
+
+- Altera a configuração default para português e números com duas casas decimais.
+
+- Ativa 'defer loading' como o padrão nas opções de configuração.
+
+- Substituição da string '(empty)' por '' nas visualizações do tipo tabela.
+
+- Remove os botões 'Incluir' e 'Excluir' e a opção 'Existe' dos filtros (controles).
+
+- Opção para exportar visualizações no formato PNG.
+
+- Inclusão de botão para expandir ou recolher os filtros.
+
+- Remove o subtítulo dos gráficos de histograma de data que indica o agrupamento utilizado ('por mês', 'por ano', etc).
+
+- Inclusão de notas de rodapé e sumário nos quadros dos painéis.
+
+- Abre uma url em janela 'flyout' quando estiver presente o parâmetro 'flyout'.
+
+- Diminui o tempo de armazenamento do código do Kibana em cache do navegador.
+
+- Ordena corretamente os meses abreviados nas opções dos filtros.
+
+- Altera o estilo dos títulos dos quadros dos painéis para permitir mais de uma linha.
+
+- Nos mapas, as camadas do tipo ponto não apresentam os símbolos quando a métrica for zero.
+
+- Remoção de filtros ativados a partir de interações com os mapas.
+
+- Remoção de filtros ativados a partir dos tooltips.
+
+- Nas visualizações do tipo grandes números, quebra o título quando forem utilizados mais de um termo na agregação.
+
+- Remove a linha do eixo Y nos gráficos de barras horizontais.
+
+- Adição de novas cores na paleta de cores que podem ser escolhidas nos gráficos legados.
+
+
+# Tradução do Kibana para PT-BR
+
+![image](https://github.com/user-attachments/assets/931337db-6a9e-4d8b-bfdb-77181b20c40b)
+
+![image](https://github.com/user-attachments/assets/63580f50-5d29-4b45-9660-15fe90e42d63)
+
+![image](https://github.com/user-attachments/assets/c09427d7-e5a5-41b7-afff-55fbac986757)
+
+![image](https://github.com/user-attachments/assets/592c7ca7-27c3-465b-8bd5-5bf9bd6c0ed8)
+
+
+
 # Kibana
 
 Kibana is your window into the [Elastic Stack](https://www.elastic.co/products). Specifically, it's a browser-based analytics and search dashboard for Elasticsearch.

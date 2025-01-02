@@ -26,7 +26,7 @@ import {
   rectSortingStrategy,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiToolTip } from '@elastic/eui';
+import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiToolTip } from '@elastic/eui';
 import { css } from '@emotion/react';
 import { useBatchedPublishingSubjects } from '@kbn/presentation-publishing';
 
@@ -96,7 +96,23 @@ export function ControlGroup({
       ignore = true;
     };
   }, [controlGroupApi]);
-
+  //Edmar Moretti - altera o ícone de aplicar os filtros para um botão
+  const ApplyButtonComponent = useMemo(() => {
+    return (
+      <EuiButton
+        size="s"
+        disabled={!hasUnappliedSelections}
+        iconSize="m"
+        color={'success'}
+        iconType={'check'}
+        data-test-subj="controlGroup--applyFiltersButton"
+        aria-label={ControlGroupStrings.management.getApplyButtonTitle(hasUnappliedSelections)}
+        onClick={applySelections}
+      >Aplicar
+      </EuiButton>
+    );
+  }, [hasUnappliedSelections, applySelections]);
+  /*
   const ApplyButtonComponent = useMemo(() => {
     return (
       <EuiButtonIcon
@@ -112,6 +128,7 @@ export function ControlGroup({
       />
     );
   }, [hasUnappliedSelections, applySelections]);
+  */
 
   if (controlsInOrder.length === 0) {
     return null;

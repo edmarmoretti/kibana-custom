@@ -10,7 +10,7 @@
 import { schema } from '@kbn/config-schema';
 import { i18n } from '@kbn/i18n';
 import type { UiSettingsParams } from '@kbn/core-ui-settings-common';
-
+//Edmar Moretti - Altera o parâmetro de configuração 'Store URLs in session storage' para true.
 export const getStateSettings = (): Record<string, UiSettingsParams> => {
   return {
     'state:storeInSessionStorage': {

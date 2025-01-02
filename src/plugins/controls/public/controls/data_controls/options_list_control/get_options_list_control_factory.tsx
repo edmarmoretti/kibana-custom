@@ -63,10 +63,15 @@ export const getOptionsListControlFactory = (): DataControlFactory<
       );
       const runPastTimeout$ = new BehaviorSubject<boolean | undefined>(initialState.runPastTimeout);
       const singleSelect$ = new BehaviorSubject<boolean | undefined>(initialState.singleSelect);
+      //Edmar Moretti - aplica a ordenação sempre conforme o default
+      /*
       const sort$ = new BehaviorSubject<OptionsListSortingType | undefined>(
         initialState.sort ?? OPTIONS_LIST_DEFAULT_SORT
       );
-
+      */
+      const sort$ = new BehaviorSubject<OptionsListSortingType | undefined>(
+        OPTIONS_LIST_DEFAULT_SORT ?? OPTIONS_LIST_DEFAULT_SORT
+      );
       /** Creation options state - cannot currently be changed after creation, but need subjects for comparators */
       const placeholder$ = new BehaviorSubject<string | undefined>(initialState.placeholder);
       const hideActionBar$ = new BehaviorSubject<boolean | undefined>(initialState.hideActionBar);

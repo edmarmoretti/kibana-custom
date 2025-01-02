@@ -33,7 +33,7 @@ export const ActivityView = ({ item }: ActivityViewProps) => {
   const UnknownUserLabel = (
     <FormattedMessage
       id="contentManagement.contentEditor.activity.unkownUserLabel"
-      defaultMessage="Unknown"
+      defaultMessage="Desconhecido"
     />
   );
 
@@ -42,7 +42,7 @@ export const ActivityView = ({ item }: ActivityViewProps) => {
       <ManagedAvatarTip />{' '}
       <FormattedMessage
         id="contentManagement.contentEditor.activity.managedUserLabel"
-        defaultMessage="System"
+        defaultMessage="Sistema"
       />
     </>
   );
@@ -52,7 +52,7 @@ export const ActivityView = ({ item }: ActivityViewProps) => {
       <EuiFlexItem grow={1} css={{ flexBasis: '50%', minWidth: 0 }}>
         <ActivityCard
           what={i18n.translate('contentManagement.contentEditor.activity.createdByLabelText', {
-            defaultMessage: 'Created by',
+            defaultMessage: 'Criado por',
           })}
           who={
             item.createdBy ? (
@@ -75,7 +75,7 @@ export const ActivityView = ({ item }: ActivityViewProps) => {
           <ActivityCard
             what={i18n.translate(
               'contentManagement.contentEditor.activity.lastUpdatedByLabelText',
-              { defaultMessage: 'Last updated by' }
+              { defaultMessage: 'Última atualização por' }
             )}
             who={
               item.updatedBy ? (
@@ -135,7 +135,7 @@ const ActivityCard = ({
           <EuiText title={when} color={'subdued'} size={'s'}>
             <FormattedMessage
               id="contentManagement.contentEditor.activity.lastUpdatedByDateTime"
-              defaultMessage="on {dateTime}"
+              defaultMessage="em {dateTime}"
               values={{
                 dateTime: formatDate(when),
               }}

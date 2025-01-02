@@ -745,7 +745,19 @@ export function XYChart({
     referenceLineLayers,
     formatFactory
   );
-
+  //Edmar Moretti - remove a linha do eixo quando a categoria estiver no eixo y
+  if(getOriginalAxisPosition('bottom', shouldRotate) == 'left'){
+    xAxisStyle.axisLine = {
+      stroke: 'white'
+    };
+  } else {
+    xAxisStyle.tickLine = {
+      visible: true,
+      size: 5
+    };
+  }
+  xAxisStyle.axisTitle = {fill: '#69707d'};
+  //Edmar Moretti - remove as interações sobre a legenda e o gráfico - gráficos do tipo XY
   return (
     <div css={chartContainerStyle}>
       {showLegend !== undefined && uiState && (
@@ -867,21 +879,9 @@ export function XYChart({
             rotation={shouldRotate ? 90 : 0}
             xDomain={xDomain}
             // enable brushing only for time charts, for both ES|QL and DSL queries
-            onBrushEnd={interactive ? (brushHandler as BrushEndListener) : undefined}
-            onElementClick={interactive ? clickHandler : undefined}
-            legendAction={
-              interactive
-                ? getLegendAction(
-                    dataLayers,
-                    onClickValue,
-                    layerCellValueActions,
-                    fieldFormats,
-                    formattedDatatables,
-                    titles,
-                    singleTable
-                  )
-                : undefined
-            }
+            onBrushEnd={undefined}
+            onElementClick={undefined}
+            legendAction={undefined}
             ariaLabel={args.ariaLabel}
             ariaUseDefaultSummary={!args.ariaLabel}
             orderOrdinalBinsBy={
@@ -947,6 +947,8 @@ export function XYChart({
                   if (axis.truncate && value.length > axis.truncate) {
                     value = `${value.slice(0, axis.truncate)}...`;
                   }
+                  //Edmar Moretti - Formata corretamente os números curtos;
+                  value = value.replace("milhões","mi");
                   return value;
                 }}
                 style={getYAxesStyle(axis)}

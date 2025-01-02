@@ -11,11 +11,11 @@ import type {
   OptionsListSortingType,
   OptionsListSearchTechnique,
 } from '../../../../common/options_list';
-
+//Edmar Moretti - altera a opção default de ordenamento das opções dos filtros
 export const DEFAULT_SEARCH_TECHNIQUE: OptionsListSearchTechnique = 'prefix';
 export const OPTIONS_LIST_DEFAULT_SORT: OptionsListSortingType = {
-  by: '_count',
-  direction: 'desc',
+  by: '_key',
+  direction: 'asc',
 };
 
 export const MIN_OPTIONS_LIST_REQUEST_SIZE = 10;

@@ -131,6 +131,20 @@ export {
   type PublishesWritablePanelDescription,
 } from './interfaces/titles/publishes_panel_description';
 export {
+  apiPublishesPanelTitleNotes,
+  apiPublishesWritablePanelTitleNotes,
+  getPanelTitleNotes,
+  type PublishesPanelTitleNotes,
+  type PublishesWritablePanelTitleNotes,
+} from './interfaces/titles/publishes_panel_title_notes';
+export {
+  apiPublishesPanelTitleSummary,
+  apiPublishesWritablePanelTitleSummary,
+  getPanelTitleSummary,
+  type PublishesPanelTitleSummary,
+  type PublishesWritablePanelTitleSummary,
+} from './interfaces/titles/publishes_panel_title_summary';
+export {
   apiPublishesPanelTitle,
   apiPublishesWritablePanelTitle,
   getPanelTitle,

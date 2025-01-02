@@ -10,9 +10,12 @@
 import { debounce } from 'lodash';
 import classNames from 'classnames';
 import useResizeObserver from 'use-resize-observer/polyfilled';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 
-import { EuiPortal } from '@elastic/eui';
+//Edmar Moretti e Leandro Celes inclusão do acordion no bloco de filtros
+
+import { EuiPortal, EuiAccordion } from '@elastic/eui';
+
 import { ReactEmbeddableRenderer, ViewMode } from '@kbn/embeddable-plugin/public';
 import { ExitFullScreenButton } from '@kbn/shared-ux-button-exit-full-screen';
 
@@ -82,6 +85,16 @@ export const DashboardViewport = ({ dashboardContainer }: { dashboardContainer?:
     'dshDashboardViewport--panelExpanded': Boolean(expandedPanelId),
   });
 
+    //Edmar Moretti - inclusão de botão para expandir/recolher os filtros
+    //const embed = window.location.href.match(/embed=true/); //leandro
+    const controlsRoot = useRef(null);
+    const simpleAccordionId = 'simpleAccordionFiltros';
+    let aberto = true;
+    const windowWidth = window.innerWidth;
+    if(windowWidth < 1024){
+      aberto = false
+    }
+
   useEffect(() => {
     if (!controlGroupApi) {
       return;
@@ -120,26 +133,31 @@ export const DashboardViewport = ({ dashboardContainer }: { dashboardContainer?:
       })}
     >
       {viewMode !== ViewMode.PRINT ? (
-        <div className={hasControls ? 'dshDashboardViewport-controls' : ''}>
-          <ReactEmbeddableRenderer<
-            ControlGroupSerializedState,
-            ControlGroupRuntimeState,
-            ControlGroupApi
-          >
-            key={uuid}
-            hidePanelChrome={true}
-            panelProps={{ hideLoader: true }}
-            type={CONTROL_GROUP_TYPE}
-            maybeId={'control_group'}
-            getParentApi={() => {
-              return {
-                ...dashboardApi,
-                getSerializedStateForChild: dashboardApi.getSerializedStateForControlGroup,
-                getRuntimeStateForChild: dashboardApi.getRuntimeStateForControlGroup,
-              };
-            }}
-            onApiAvailable={(api) => dashboardApi.setControlGroupApi(api)}
-          />
+        <div id='filtros'>
+              <EuiAccordion 
+              buttonClassName={'euiAccordionForm__button'} className={'euiAccordionForm'} id={simpleAccordionId} buttonContent="Filtros" initialIsOpen={aberto}  >
+                <div ref={controlsRoot} className={hasControls ? 'dshDashboardViewport-controls' : ''}>
+                  <ReactEmbeddableRenderer<
+                    ControlGroupSerializedState,
+                    ControlGroupRuntimeState,
+                    ControlGroupApi
+                  >
+                    key={uuid}
+                    hidePanelChrome={true}
+                    panelProps={{ hideLoader: true }}
+                    type={CONTROL_GROUP_TYPE}
+                    maybeId={'control_group'}
+                    getParentApi={() => {
+                      return {
+                        ...dashboardApi,
+                        getSerializedStateForChild: dashboardApi.getSerializedStateForControlGroup,
+                        getRuntimeStateForChild: dashboardApi.getRuntimeStateForControlGroup,
+                      };
+                    }}
+                    onApiAvailable={(api) => dashboardApi.setControlGroupApi(api)}
+                  />
+                </div>
+              </EuiAccordion>
         </div>
       ) : null}
       {fullScreenMode && (

@@ -37,6 +37,14 @@ function getPanelDescription(input: EmbeddableInput, output: EmbeddableOutput) {
   if (input.hidePanelTitles) return '';
   return input.description ?? output.defaultDescription;
 }
+function getPanelTitleNotes(input: EmbeddableInput, output: EmbeddableOutput) {
+  if (input.hidePanelTitles) return '';
+  return input.titleNotes ?? output.defaultTitleNotes;
+}
+function getPanelTitleSummary(input: EmbeddableInput, output: EmbeddableOutput) {
+  if (input.hidePanelTitles) return '';
+  return input.titleSummary ?? output.defaultTitleSummary;
+}
 
 export abstract class Embeddable<
   TEmbeddableInput extends EmbeddableInput = EmbeddableInput,
@@ -81,6 +89,8 @@ export abstract class Embeddable<
     this.output = {
       title: getPanelTitle(input, output),
       description: getPanelDescription(input, output),
+      titleNotes: getPanelTitleNotes(input, output),
+      titleSummary: getPanelTitleSummary(input, output),
       ...(this.reportsEmbeddableLoad()
         ? {}
         : {
@@ -136,6 +146,10 @@ export abstract class Embeddable<
       isEditingEnabled: this.isEditingEnabled,
       panelDescription: this.panelDescription,
       defaultPanelDescription: this.defaultPanelDescription,
+      panelTitleNotes: this.panelTitleNotes,
+      defaultPanelTitleNotes: this.defaultPanelTitleNotes,
+      panelTitleSummary: this.panelTitleSummary,
+      defaultPanelTitleSummary: this.defaultPanelTitleSummary,
       canLinkToLibrary: this.canLinkToLibrary,
       disabledActionIds: this.disabledActionIds,
       setDisabledActionIds: this.setDisabledActionIds,
@@ -145,6 +159,9 @@ export abstract class Embeddable<
       setTimeRange: this.setTimeRange,
       getTypeDisplayName: this.getTypeDisplayName,
       setPanelDescription: this.setPanelDescription,
+      setPanelTitleNotes: this.setPanelTitleNotes,
+      setPanelTitleSummary: this.setPanelTitleSummary,
+
       canUnlinkFromLibrary: this.canUnlinkFromLibrary,
       isCompatibleWithUnifiedSearch: this.isCompatibleWithUnifiedSearch,
       savedObjectId: this.savedObjectId,
@@ -190,6 +207,12 @@ export abstract class Embeddable<
   public setHidePanelTitle: LegacyEmbeddableAPI['setHidePanelTitle'];
   public getTypeDisplayName: LegacyEmbeddableAPI['getTypeDisplayName'];
   public setPanelDescription: LegacyEmbeddableAPI['setPanelDescription'];
+  public panelTitleNotes: LegacyEmbeddableAPI['panelTitleNotes'];
+  public defaultPanelTitleNotes: LegacyEmbeddableAPI['defaultPanelTitleNotes'];
+  public setPanelTitleNotes: LegacyEmbeddableAPI['setPanelTitleNotes'];
+  public panelTitleSummary: LegacyEmbeddableAPI['panelTitleSummary'];
+  public defaultPanelTitleSummary: LegacyEmbeddableAPI['defaultPanelTitleSummary'];
+  public setPanelTitleSummary: LegacyEmbeddableAPI['setPanelTitleSummary'];
   public canUnlinkFromLibrary: LegacyEmbeddableAPI['canUnlinkFromLibrary'];
   public isCompatibleWithUnifiedSearch: LegacyEmbeddableAPI['isCompatibleWithUnifiedSearch'];
   public savedObjectId: LegacyEmbeddableAPI['savedObjectId'];
@@ -299,6 +322,13 @@ export abstract class Embeddable<
     return this.output.description ?? '';
   }
 
+  public getTitleNotes(): string | undefined {
+    return this.output.titleNotes ?? '';
+  }
+
+  public getTitleSummary(): string | undefined {
+    return this.output.titleSummary ?? '';
+  }
   /**
    * Returns the top most parent embeddable, or itself if this embeddable
    * is not within a parent.
@@ -414,6 +444,8 @@ export abstract class Embeddable<
       this.updateOutput({
         title: getPanelTitle(this.input, this.output),
         description: getPanelDescription(this.input, this.output),
+        titleNotes: getPanelTitleNotes(this.input, this.output),
+        titleSummary: getPanelTitleSummary(this.input, this.output),
       } as Partial<TEmbeddableOutput>);
       if (oldLastReloadRequestTime !== newInput.lastReloadRequestTime) {
         this.reload();

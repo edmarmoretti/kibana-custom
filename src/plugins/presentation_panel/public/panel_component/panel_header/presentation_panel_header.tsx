@@ -7,7 +7,7 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-import { EuiScreenReaderOnly } from '@elastic/eui';
+import { EuiScreenReaderOnly,EuiTextColor } from '@elastic/eui';
 import { ViewMode } from '@kbn/presentation-publishing';
 import classNames from 'classnames';
 import React from 'react';
@@ -22,6 +22,8 @@ export type PresentationPanelHeaderProps<ApiType extends DefaultPresentationPane
   viewMode?: ViewMode;
   hideTitle?: boolean;
   panelTitle?: string;
+  panelTitleNotes?: string;
+  panelTitleSummary?: string;
   panelDescription?: string;
 } & Pick<PresentationPanelInternalProps, 'showBadges' | 'getActions' | 'showNotifications'>;
 
@@ -34,6 +36,8 @@ export const PresentationPanelHeader = <
   getActions,
   hideTitle,
   panelTitle,
+  panelTitleNotes,
+  panelTitleSummary,
   panelDescription,
   showBadges = true,
   showNotifications = true,
@@ -67,7 +71,7 @@ export const PresentationPanelHeader = <
   });
 
   return (
-    <figcaption
+    <><figcaption
       className={headerClasses}
       data-test-subj={`embeddablePanelHeading-${(panelTitle || '').replace(/\s/g, '')}`}
     >
@@ -79,10 +83,14 @@ export const PresentationPanelHeader = <
           hideTitle={hideTitle}
           panelTitle={panelTitle}
           panelDescription={panelDescription}
+          panelTitleSummary={panelTitleSummary}
+          panelTitleNotes={panelTitleNotes}
         />
         {showBadges && badgeElements}
       </h2>
       {showNotifications && notificationElements}
     </figcaption>
+    <EuiTextColor color="subdued" className='embPanel__titleSummary'>{panelTitleSummary}</EuiTextColor>
+    </>
   );
 };

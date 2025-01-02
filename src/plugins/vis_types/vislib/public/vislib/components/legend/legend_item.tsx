@@ -155,7 +155,6 @@ const VisLegendItemComponent = ({
       />
     </EuiPopover>
   );
-
   return (
     <li key={item.label} className="visLegend__value">
       {renderDetails()}

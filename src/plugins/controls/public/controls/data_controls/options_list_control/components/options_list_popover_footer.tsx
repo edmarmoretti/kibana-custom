@@ -6,11 +6,11 @@
  * your election, the "Elastic License 2.0", the "GNU Affero General Public
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
-
+// Edmar Moretti - remove os botões Incluir Excluir dos filtros
 import React from 'react';
 
 import {
-  EuiButtonGroup,
+//  EuiButtonGroup,
   EuiFlexGroup,
   EuiFlexItem,
   EuiIconTip,
@@ -25,6 +25,7 @@ import { useBatchedPublishingSubjects } from '@kbn/presentation-publishing';
 import { useOptionsListContext } from '../options_list_context_provider';
 import { OptionsListStrings } from '../options_list_strings';
 
+/*
 const aggregationToggleButtons = [
   {
     id: 'optionsList__includeResults',
@@ -37,16 +38,18 @@ const aggregationToggleButtons = [
     label: OptionsListStrings.popover.getExcludeLabel(),
   },
 ];
+*/
 
 export const OptionsListPopoverFooter = () => {
   const { api, stateManager } = useOptionsListContext();
 
-  const [exclude, loading, allowExpensiveQueries] = useBatchedPublishingSubjects(
+  const [loading, allowExpensiveQueries] = useBatchedPublishingSubjects(
     stateManager.exclude,
     api.dataLoading,
     api.parentApi.allowExpensiveQueries$
   );
 
+  /*
   return (
     <>
       <EuiPopoverFooter
@@ -98,4 +101,50 @@ export const OptionsListPopoverFooter = () => {
       </EuiPopoverFooter>
     </>
   );
+*/
+
+return (
+  <>
+    <EuiPopoverFooter
+      paddingSize="none"
+      css={css`
+        background-color: ${useEuiBackgroundColor('subdued')};
+      `}
+    >
+      {loading && (
+        <div style={{ position: 'absolute', width: '100%' }}>
+          <EuiProgress
+            data-test-subj="optionsList-control-popover-loading"
+            size="xs"
+            color="accent"
+          />
+        </div>
+      )}
+
+      <EuiFlexGroup
+        gutterSize="xs"
+        responsive={false}
+        alignItems="center"
+        css={css`
+          padding: ${useEuiPaddingSize('s')};
+        `}
+        justifyContent={'spaceBetween'}
+      >
+
+        {!allowExpensiveQueries && (
+          <EuiFlexItem data-test-subj="optionsList-allow-expensive-queries-warning" grow={false}>
+            <EuiIconTip
+              type="warning"
+              color="warning"
+              content={OptionsListStrings.popover.getAllowExpensiveQueriesWarning()}
+              aria-label={OptionsListStrings.popover.getAllowExpensiveQueriesWarning()}
+            />
+          </EuiFlexItem>
+        )}
+      </EuiFlexGroup>
+    </EuiPopoverFooter>
+  </>
+);
+
 };
+

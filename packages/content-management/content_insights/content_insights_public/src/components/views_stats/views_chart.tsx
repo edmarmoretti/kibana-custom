@@ -16,12 +16,12 @@ import moment from 'moment';
 const dateFormatter = (d: Date) => formatDate(d, `MM/DD`);
 
 const seriesName = i18n.translate('contentManagement.contentEditor.viewsStats.viewsLabel', {
-  defaultMessage: 'Views',
+  defaultMessage: 'Visualizações',
 });
 
 const weekOfFormatter = (date: Date) =>
   i18n.translate('contentManagement.contentEditor.viewsStats.weekOfLabel', {
-    defaultMessage: 'Week of {date}',
+    defaultMessage: 'Semana de {date}',
     values: { date: dateFormatter(date) },
   });
 

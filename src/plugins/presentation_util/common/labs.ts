@@ -24,7 +24,7 @@ export const solutionNames = ['canvas', 'dashboard', 'presentation'] as const;
 export const projects: { [ID in ProjectID]: ProjectConfig & { id: ID } } = {
   [DEFER_BELOW_FOLD]: {
     id: DEFER_BELOW_FOLD,
-    isActive: false,
+    isActive: true,
     isDisplayed: true,
     environments: ['kibana', 'browser', 'session'],
     name: i18n.translate('presentationUtil.labs.enableDeferBelowFoldProjectName', {

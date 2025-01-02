@@ -5,17 +5,17 @@
  * 2.0.
  */
 
-import React from 'react';
+//import React from 'react';
 import {
   FeatureCollection,
   GeoJsonProperties,
   Geometry,
-  MultiPolygon,
-  Polygon,
+//  MultiPolygon,
+//  Polygon,
   Position,
 } from 'geojson';
 import type { KibanaExecutionContext } from '@kbn/core/public';
-import { i18n } from '@kbn/i18n';
+//import { i18n } from '@kbn/i18n';
 import type { Query } from '@kbn/data-plugin/common';
 import type { MapGeoJSONFeature } from '@kbn/mapbox-gl';
 import { Filter } from '@kbn/es-query';
@@ -35,7 +35,7 @@ import {
   VectorSourceRequestMeta,
 } from '../../../../common/descriptor_types';
 import { DataRequest } from '../../util/data_request';
-import { FeatureGeometryFilterForm } from '../../../connected_components/mb_map/tooltip_control/features_tooltip';
+//import { FeatureGeometryFilterForm } from '../../../connected_components/mb_map/tooltip_control/features_tooltip';
 
 export function hasVectorSourceMethod(
   source: ISource,
@@ -275,7 +275,10 @@ export class AbstractVectorSource extends AbstractSource implements IVectorSourc
       return [];
     }
 
-    const geojsonGeometry = getGeojsonGeometry();
+    //const geojsonGeometry = getGeojsonGeometry();
+    //Edmar Moretti - remove a opção de filtrar pela geometria nos mapas
+    return [];
+    /*
     return geojsonGeometry
       ? [
           {
@@ -296,6 +299,7 @@ export class AbstractVectorSource extends AbstractSource implements IVectorSourc
           },
         ]
       : [];
+    */
   }
 
   getInspectorRequestIds(): string[] {

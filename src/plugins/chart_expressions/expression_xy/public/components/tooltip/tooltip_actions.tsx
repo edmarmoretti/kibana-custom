@@ -118,6 +118,8 @@ export const getTooltipActions = (
   formatFactory: FormatFactory,
   isEnabled?: boolean
 ) => {
+  //Edmar Moretti - remove as ações nos tooltips dos gráficos
+  return;
   if (!isEnabled) return;
   const hasSplitAccessors = dataLayers.some((l) => l.splitAccessors?.length);
   const hasXAxis = dataLayers.every((l) => l.xAccessor);

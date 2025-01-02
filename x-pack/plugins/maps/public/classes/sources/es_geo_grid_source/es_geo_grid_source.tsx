@@ -19,7 +19,7 @@ import type { KibanaExecutionContext } from '@kbn/core/public';
 import { ISearchSource } from '@kbn/data-plugin/common/search/search_source';
 import { DataView } from '@kbn/data-plugin/common';
 import { Adapters } from '@kbn/inspector-plugin/common/adapters';
-import { ACTION_GLOBAL_APPLY_FILTER } from '@kbn/unified-search-plugin/public';
+//import { ACTION_GLOBAL_APPLY_FILTER } from '@kbn/unified-search-plugin/public';
 import { getTileUrlParams } from '@kbn/maps-vector-tile-utils';
 import { type Filter, buildExistsFilter } from '@kbn/es-query';
 import { makeESBbox } from '../../../../common/elasticsearch_util';
@@ -39,7 +39,7 @@ import {
   VECTOR_STYLES,
 } from '../../../../common/constants';
 import { getDataSourceLabel, getDataViewLabel } from '../../../../common/i18n_getters';
-import { buildGeoGridFilter } from '../../../../common/elasticsearch_util';
+//import { buildGeoGridFilter } from '../../../../common/elasticsearch_util';
 import { AbstractESAggSource, ESAggsSourceSyncMeta } from '../es_agg_source';
 import { DataRequestAbortError } from '../../util/data_request';
 import { LICENSED_FEATURES } from '../../../licensed_features';
@@ -621,7 +621,9 @@ export class ESGeoGridSource extends AbstractESAggSource implements IMvtVectorSo
     if (geoFieldNames.length === 0 || addFilters === null) {
       return [];
     }
-
+    //Edmar Moretti - remove a opção de filtro pelo cluster nos mapas
+    return [];
+    /*
     return [
       {
         label: i18n.translate('xpack.maps.tooltip.action.filterByClusterLabel', {
@@ -639,5 +641,6 @@ export class ESGeoGridSource extends AbstractESAggSource implements IMvtVectorSo
         },
       },
     ];
+    */
   }
 }

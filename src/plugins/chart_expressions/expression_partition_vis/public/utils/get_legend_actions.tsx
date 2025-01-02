@@ -46,9 +46,14 @@ export const getLegendActions = (
       [pieSeries]
     );
     const [ref, onClose] = useLegendAction<HTMLDivElement>();
-
+    //Edmar Moretti - remove opções de filtros na legenda em gráficos de partição
+    /*
     useEffect(() => {
       (async () => setIsFilterable(await canFilter(filterData, actions)))();
+    }, [filterData]);
+    */
+    useEffect(() => {
+      (async () => setIsFilterable(false))();
     }, [filterData]);
 
     if (columnIndex === -1) {

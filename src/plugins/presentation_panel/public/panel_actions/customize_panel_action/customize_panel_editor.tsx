@@ -7,6 +7,8 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
+//Edmar Moretti - inclui a nota de rodapé e sumário no formulário de edição do título do quadro
+
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import {
@@ -36,6 +38,8 @@ import {
   getInheritedViewMode,
   getPanelDescription,
   getPanelTitle,
+  getPanelTitleNotes,
+  getPanelTitleSummary,
   PublishesUnifiedSearch,
 } from '@kbn/presentation-publishing';
 
@@ -66,6 +70,10 @@ export const CustomizePanelEditor = ({
   const [hideTitle, setHideTitle] = useState(api.hidePanelTitle?.value);
   const [panelTitle, setPanelTitle] = useState(getPanelTitle(api));
   const [panelDescription, setPanelDescription] = useState(getPanelDescription(api));
+  
+  const [panelTitleSummary, setPanelTitleSummary] = useState(getPanelTitleSummary(api));
+  const [panelTitleNotes, setPanelTitleNotes] = useState(getPanelTitleNotes(api));
+
   const [timeRange, setTimeRange] = useState(
     api.timeRange$?.value ?? api.parentApi?.timeRange$?.value
   );
@@ -103,7 +111,15 @@ export const CustomizePanelEditor = ({
     if (hideTitle !== api.hidePanelTitle?.value) api.setHidePanelTitle?.(hideTitle);
     if (panelDescription !== api.panelDescription?.value)
       api.setPanelDescription?.(panelDescription);
+    
+    if (panelTitleNotes !== api.panelTitleNotes?.value){
+      api.setPanelTitleNotes?.(panelTitleNotes);
+    }
 
+    if (panelTitleSummary !== api.panelTitleSummary?.value){
+      api.setPanelTitleSummary?.(panelTitleSummary);
+    }
+    
     const newTimeRange = hasOwnTimeRange ? timeRange : undefined;
     if (newTimeRange !== api.timeRange$?.value) {
       api.setTimeRange?.(newTimeRange);
@@ -181,8 +197,99 @@ export const CustomizePanelEditor = ({
         <EuiFormRow
           label={
             <FormattedMessage
+              id="presentationPanel.action.customizePanel.flyout.optionsMenuForm.panelTitleNotesFormRowLabel"
+              defaultMessage="Notas de rodapé"
+            />
+          }
+          labelAppend={
+            <EuiButtonEmpty
+              size="xs"
+              data-test-subj="resetCustomEmbeddablePanelTitleNotesButton"
+              onClick={() => setPanelTitleNotes(api.defaultPanelTitleNotes?.value)}
+              disabled={
+                hideTitle || !editMode || api.defaultPanelTitleNotes?.value === panelTitleNotes
+              }
+              aria-label={i18n.translate(
+                'presentationPanel.action.customizePanel.flyout.optionsMenuForm.resetCustomTityleNotesButtonAriaLabel',
+                {
+                  defaultMessage: 'Reinicia a nota de rodapé',
+                }
+              )}
+            >
+              <FormattedMessage
+                id="presentationPanel.action.customizePanel.modal.optionsMenuForm.resetCustomTitleNotesButtonLabel"
+                defaultMessage="Reinicia"
+              />
+            </EuiButtonEmpty>
+          }
+        >
+          <EuiTextArea
+            id="panelTitleNotesInput"
+            className="panelTitleNotesInputText"
+            data-test-subj="customEmbeddablePanelTitleNotesInput"
+            disabled={hideTitle || !editMode}
+            name="titleNotes"
+            value={panelTitleNotes ?? ''}
+            onChange={(e) => setPanelTitleNotes(e.target.value)}
+            aria-label={i18n.translate(
+              'presentationPanel.action.customizePanel.flyout.optionsMenuForm.panelTitleNotesAriaLabel',
+              {
+                defaultMessage: 'Entre com a nota de rorapé',
+              }
+            )}
+          />
+        </EuiFormRow>
+        <EuiFormRow
+          label={
+            <FormattedMessage
+              id="presentationPanel.action.customizePanel.flyout.optionsMenuForm.panelTitleSummaryFormRowLabel"
+              defaultMessage="Resumo"
+            />
+          }
+          labelAppend={
+            <EuiButtonEmpty
+              size="xs"
+              data-test-subj="resetCustomEmbeddablePanelTitleSummaryButton"
+              onClick={() => setPanelTitleSummary(api.defaultPanelTitleSummary?.value)}
+              disabled={
+                hideTitle || !editMode || api.defaultPanelTitleSummary?.value === panelTitleSummary
+              }
+              aria-label={i18n.translate(
+                'presentationPanel.action.customizePanel.flyout.optionsMenuForm.resetCustomTityleSummaryButtonAriaLabel',
+                {
+                  defaultMessage: 'Reinicia o resumo',
+                }
+              )}
+            >
+              <FormattedMessage
+                id="presentationPanel.action.customizePanel.modal.optionsMenuForm.resetCustomTitleSummaryButtonLabel"
+                defaultMessage="Reinicia"
+              />
+            </EuiButtonEmpty>
+          }
+        >
+          <EuiTextArea
+            id="panelTitleSummaryInput"
+            className="panelTitleSummaryInputText"
+            data-test-subj="customEmbeddablePanelTitleSummaryInput"
+            disabled={hideTitle || !editMode}
+            name="titleSummary"
+            value={panelTitleSummary ?? ''}
+            onChange={(e) => setPanelTitleSummary(e.target.value)}
+            aria-label={i18n.translate(
+              'presentationPanel.action.customizePanel.flyout.optionsMenuForm.panelTitleSummaryAriaLabel',
+              {
+                defaultMessage: 'Entre com o resumo',
+              }
+            )}
+          />
+        </EuiFormRow>
+
+        <EuiFormRow
+          label={
+            <FormattedMessage
               id="presentationPanel.action.customizePanel.flyout.optionsMenuForm.panelDescriptionFormRowLabel"
-              defaultMessage="Description"
+              defaultMessage="Descrição que será mostrada no (i)"
             />
           }
           labelAppend={

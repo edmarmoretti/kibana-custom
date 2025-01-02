@@ -6,7 +6,7 @@
  * your election, the "Elastic License 2.0", the "GNU Affero General Public
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
-//Edmar Moretti - tradução
+//Edmar Moretti - tradução biblioteca de visualizações
 import { i18n } from '@kbn/i18n';
 import { filter, map } from 'rxjs';
 import { createHashHistory } from 'history';

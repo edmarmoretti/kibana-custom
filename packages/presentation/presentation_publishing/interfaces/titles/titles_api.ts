@@ -11,10 +11,14 @@ import { BehaviorSubject } from 'rxjs';
 import { StateComparators } from '../../comparators';
 import { PublishesWritablePanelDescription } from './publishes_panel_description';
 import { PublishesWritablePanelTitle } from './publishes_panel_title';
+import { PublishesWritablePanelTitleNotes } from './publishes_panel_title_notes';
+import { PublishesWritablePanelTitleSummary } from './publishes_panel_title_summary';
 
 export interface SerializedTitles {
   title?: string;
   description?: string;
+  titleNotes?: string;
+  titleSummary?: string;
   hidePanelTitles?: boolean;
 }
 
@@ -22,11 +26,17 @@ export const stateHasTitles = (state: unknown): state is SerializedTitles => {
   return (
     (state as SerializedTitles)?.title !== undefined ||
     (state as SerializedTitles)?.description !== undefined ||
+    (state as SerializedTitles)?.titleNotes !== undefined ||
+    (state as SerializedTitles)?.titleSummary !== undefined ||
     (state as SerializedTitles)?.hidePanelTitles !== undefined
   );
 };
 
-export interface TitlesApi extends PublishesWritablePanelTitle, PublishesWritablePanelDescription {}
+export interface TitlesApi extends PublishesWritablePanelTitle, PublishesWritablePanelDescription {};
+
+export interface TitlesApi extends PublishesWritablePanelTitle, PublishesWritablePanelTitleNotes {};
+
+export interface TitlesApi extends PublishesWritablePanelTitle, PublishesWritablePanelTitleSummary {};
 
 export const initializeTitles = (
   rawState: SerializedTitles
@@ -37,15 +47,21 @@ export const initializeTitles = (
 } => {
   const panelTitle = new BehaviorSubject<string | undefined>(rawState.title);
   const panelDescription = new BehaviorSubject<string | undefined>(rawState.description);
+  const panelTitleNotes = new BehaviorSubject<string | undefined>(rawState.titleNotes);
+  const panelTitleSummary = new BehaviorSubject<string | undefined>(rawState.titleSummary);
   const hidePanelTitle = new BehaviorSubject<boolean | undefined>(rawState.hidePanelTitles);
 
   const setPanelTitle = (value: string | undefined) => panelTitle.next(value);
   const setHidePanelTitle = (value: boolean | undefined) => hidePanelTitle.next(value);
   const setPanelDescription = (value: string | undefined) => panelDescription.next(value);
+  const setPanelTitleNotes = (value: string | undefined) => panelTitleNotes.next(value);
+  const setPanelTitleSummary = (value: string | undefined) => panelTitleSummary.next(value);
 
   const titleComparators: StateComparators<SerializedTitles> = {
     title: [panelTitle, setPanelTitle],
     description: [panelDescription, setPanelDescription],
+    titleNotes: [panelTitleNotes, setPanelTitleNotes],
+    titleSummary: [panelTitleSummary, setPanelTitleSummary],
     hidePanelTitles: [hidePanelTitle, setHidePanelTitle, (a, b) => Boolean(a) === Boolean(b)],
   };
 
@@ -56,13 +72,18 @@ export const initializeTitles = (
     setHidePanelTitle,
     panelDescription,
     setPanelDescription,
+    panelTitleNotes,
+    setPanelTitleNotes,
+    panelTitleSummary,
+    setPanelTitleSummary,
   };
-
   return {
     serializeTitles: () => ({
       title: panelTitle.value,
       hidePanelTitles: hidePanelTitle.value,
       description: panelDescription.value,
+      titleNotes: panelTitleNotes.value,
+      titleSummary: panelTitleSummary.value,
     }),
     titleComparators,
     titlesApi,

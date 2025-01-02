@@ -17,6 +17,8 @@ import {
   PublishesDisabledActionIds,
   PublishesPanelDescription,
   PublishesPanelTitle,
+  PublishesPanelTitleNotes,
+  PublishesPanelTitleSummary,
   PublishesViewMode,
 } from '@kbn/presentation-publishing';
 import { UiActionsService } from '@kbn/ui-actions-plugin/public';
@@ -71,6 +73,8 @@ export interface DefaultPresentationPanelApi
         PublishesDataLoading &
         PublishesBlockingError &
         PublishesPanelDescription &
+        PublishesPanelTitleNotes &
+        PublishesPanelTitleSummary &
         PublishesDisabledActionIds &
         HasParentApi<
           PresentationContainer &

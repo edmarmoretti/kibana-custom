@@ -29,12 +29,10 @@ export const PresentationPanelInternal = <
   hideHeader,
   showShadow,
   showBorder,
-
   showBadges,
   showNotifications,
   getActions,
   actionPredicate,
-
   Component,
   componentProps,
 }: PresentationPanelInternalProps<ApiType, ComponentPropsType>) => {
@@ -52,8 +50,12 @@ export const PresentationPanelInternal = <
     panelTitle,
     hidePanelTitle,
     panelDescription,
+    panelTitleNotes,
+    panelTitleSummary,
     defaultPanelTitle,
     defaultPanelDescription,
+    defaultPanelTitleNotes,
+    defaultPanelTitleSummary,
     rawViewMode,
     parentHidePanelTitle,
   ] = useBatchedOptionalPublishingSubjects(
@@ -62,8 +64,12 @@ export const PresentationPanelInternal = <
     api?.panelTitle,
     api?.hidePanelTitle,
     api?.panelDescription,
+    api?.panelTitleNotes,
+    api?.panelTitleSummary,
     api?.defaultPanelTitle,
     api?.defaultPanelDescription,
+    api?.defaultPanelTitleNotes,
+    api?.defaultPanelTitleSummary,
     viewModeSubject,
     api?.parentApi?.hidePanelTitle
   );
@@ -108,14 +114,16 @@ export const PresentationPanelInternal = <
         {!hideHeader && api && (
           <PresentationPanelHeader
             api={api}
-            headerId={headerId}
             viewMode={viewMode}
-            hideTitle={hideTitle}
-            showBadges={showBadges}
+            headerId={headerId}
             getActions={getActions}
-            showNotifications={showNotifications}
+            hideTitle={hideTitle}
             panelTitle={panelTitle ?? defaultPanelTitle}
             panelDescription={panelDescription ?? defaultPanelDescription}
+            panelTitleSummary={panelTitleSummary ?? defaultPanelTitleSummary}
+            panelTitleNotes={panelTitleNotes ?? defaultPanelTitleNotes}
+            showBadges={showBadges}
+            showNotifications={showNotifications}
           />
         )}
         {blockingError && api && (
@@ -139,7 +147,26 @@ export const PresentationPanelInternal = <
             />
           </EuiErrorBoundary>
         </div>
+        {formatPanelNotes(panelTitleNotes)}
+
       </EuiPanel>
     </PresentationPanelHoverActions>
   );
 };
+//Edmar Moretti - adicionado titleNotes
+function formatPanelNotes(panelTitleNotes: string | undefined) {
+  const linkify = (inputText: string) => {
+      var replacedText, replacePattern1;
+      //URLs starting with http://, https://, or ftp://
+      replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+      replacedText = inputText.replace(replacePattern1, "<a href='$1' target='_blank' > $1</a>");
+      //return replacedText;
+      const theObj = {__html:replacedText};
+      return <div data-test-subj="markdownBody" className="kbnMarkdown__body" dangerouslySetInnerHTML={theObj} />
+  }  
+  return (
+    <figcaption className='embPanel__notes'>
+        {panelTitleNotes?linkify(panelTitleNotes):''}
+    </figcaption>
+  );
+}
