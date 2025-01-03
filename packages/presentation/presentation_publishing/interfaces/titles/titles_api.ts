@@ -50,7 +50,6 @@ export const initializeTitles = (
   const panelTitleNotes = new BehaviorSubject<string | undefined>(rawState.titleNotes);
   const panelTitleSummary = new BehaviorSubject<string | undefined>(rawState.titleSummary);
   const hidePanelTitle = new BehaviorSubject<boolean | undefined>(rawState.hidePanelTitles);
-
   const setPanelTitle = (value: string | undefined) => panelTitle.next(value);
   const setHidePanelTitle = (value: boolean | undefined) => hidePanelTitle.next(value);
   const setPanelDescription = (value: string | undefined) => panelDescription.next(value);
