@@ -52,6 +52,31 @@
 
 - Adição de novas cores na paleta de cores que podem ser escolhidas nos gráficos legados.
 
+Alterações no Elastic Charts:
+
+- Aumenta o número de linhas que é utilizado para quebrar os textos e incluir "...".
+
+- Nos grandes números, posiciona a métrica secundária abaixo da métrica principal.
+
+- Remove ",00" dos labels dos eixos e interior do gráfico.
+
+- Posiciona os títulos dos eixos no ínicio  da linha.
+
+- Não mostra labels dentro dos gráficos quando forem zero.
+
+- Muda o padrão de arredondamento dos valores nos labels dos eixos, mostrando o último valor superior.
+
+- Mostra a legenda apenas se houver mais de um item.
+
+Alterações no Plugin Enhanced Table
+
+- Remove a opção de exportação dos dados no formato RAW.
+
+- Remove ',00' dos números.
+
+- Remove a opção de filtro por valores, que afeta os filtros globais do painel.
+
+Altera a ordem de apresentação dos títulos das tabelas
 
 # Tradução do Kibana para PT-BR
 
