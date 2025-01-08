@@ -54,16 +54,26 @@ export class ExportPNGAction implements Action<ExportContext> {
   public readonly getDisplayName = (context: ExportContext): string =>
     dashboardExportPngActionStrings.getDisplayName();
 
+  //Edmar Moretti - não mostra a opção se for do tipo tabela ou do tipo mapa
   public async isCompatible(context: ExportContext): Promise<boolean> {
-    
-    if(context.embeddable.domNode && !context.embeddable?.activeVisualizationState?.columns){
-      return true;
+    let p = document.getElementById('panel-' + context.embeddable?.uuid);
+    if(p){
+      let mapa = context.embeddable?.getTypeDisplayName();
+      let lnsDataTableContainer = p.getElementsByClassName("lnsDataTableContainer");
+      let unifiedDataTableToolbar = p.getElementsByClassName("unifiedDataTableToolbar");
+      return  mapa == "mapa" || lnsDataTableContainer.length > 0 || unifiedDataTableToolbar.length > 0 ? false: true;
+    } else { 
+      return false;
     }
-    return false;
   }
-
+/*
+  private hasDatatableContent = (adapters: Adapters | undefined) => {
+    return Object.keys(adapters?.tables || {}).length > 0 && adapters!.tables.allowCsvExport;
+  };
+*/
   private exportPNG = async (context: ExportContext) => {
-    let quadro = (context.embeddable.domNode || context.embeddable._domNode).parentNode.parentNode;
+    if(!context.embeddable){return;}
+    let quadro = document.getElementById('panel-' + context.embeddable.uuid);//(context.embeddable.domNode || context.embeddable._domNode).parentNode.parentNode;
     html2canvas(quadro).then(function(canvas: { toDataURL: (arg0: string) => string | URL; }) {
       let xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
@@ -79,8 +89,6 @@ export class ExportPNGAction implements Action<ExportContext> {
         xhr.open('GET', canvas.toDataURL('image/png')); // This is to download the canvas Image
         xhr.send();
     });
-
-
     //debugger;
   };
 

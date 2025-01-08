@@ -120,7 +120,6 @@ export const TableVisBasic = memo(
       },
       [columns, setColumnsWidth]
     );
-
     return (
       <>
         {title && (
@@ -133,7 +132,7 @@ export const TableVisBasic = memo(
           columns={gridColumns}
           gridStyle={{
             border: 'horizontal',
-            header: 'underline',
+            header: 'underline'
           }}
           rowHeightsOptions={rowHeightsOptions}
           rowCount={rows.length}

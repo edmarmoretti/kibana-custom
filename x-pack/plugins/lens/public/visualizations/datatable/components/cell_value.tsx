@@ -127,7 +127,7 @@ export const createGridCell = (
 
         match = content.match(/\/([A-Z0-9]+)-/i);
         const codigo = match ? match[1] : '';
-        console.log("codigo: " + codigo);
+        //console.log("codigo: " + codigo);
         return (
           <div>
           <EuiButtonEmpty iconType="lensApp" size="xs" color='primary' onClick={() => abreFicha(codigo)}>

@@ -68,6 +68,8 @@ Alterações no Elastic Charts:
 
 - Mostra a legenda apenas se houver mais de um item.
 
+- Altera o estilo do sumário das colunas nas tabelas feitas com Lens, colocando o label e o valor em linhas separadas.
+
 Alterações no Plugin Enhanced Table
 
 - Remove a opção de exportação dos dados no formato RAW.

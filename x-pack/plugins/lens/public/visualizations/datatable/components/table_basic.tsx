@@ -475,12 +475,15 @@ export const DatatableComponent = (props: DatatableRenderProps) => {
         ...getFinalSummaryConfiguration(config.columnId, config, props.data),
       }))
       .filter(({ summaryRow }) => summaryRow !== 'none');
-
+    //Edmar Moretti - altera o estilo do sumário por colunas. Ver também o scss
     if (columnsWithSummary.length) {
       const summaryLookup = Object.fromEntries(
         columnsWithSummary.map(({ summaryRowValue, summaryLabel, columnId }) => [
           columnId,
-          summaryLabel === '' ? `${summaryRowValue}` : `${summaryLabel}: ${summaryRowValue}`,
+          {
+            'l':summaryLabel,
+            'v': summaryRowValue + ''
+          }
         ])
       );
       return ({ columnId }: { columnId: string }) => {
@@ -488,13 +491,20 @@ export const DatatableComponent = (props: DatatableRenderProps) => {
         const alignmentClassName = `lnsTableCell--${currentAlignment}`;
         const columnName =
           columns.find(({ id }) => id === columnId)?.displayAsText?.replace(/ /g, '-') || columnId;
+        
         return summaryLookup[columnId] != null ? (
-          <div
-            className={`lnsTableCell ${alignmentClassName}`}
+          <><div
+            className={`lnsTableCell ${alignmentClassName} lnsTableCellSummaryLabel`}
             data-test-subj={`lnsDataTable-footer-${columnName}`}
           >
-            {summaryLookup[columnId]}
+            {summaryLookup[columnId].l}
           </div>
+          <div
+            className={`lnsTableCell ${alignmentClassName} lnsTableCellSummaryValue`}
+            data-test-subj={`lnsDataTable-footer-${columnName}`}
+          >
+              {summaryLookup[columnId].v}
+            </div></>
         ) : null;
       };
     }
