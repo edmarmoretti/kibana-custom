@@ -458,7 +458,7 @@ export const PresentationPanelHoverActions = ({
   );
 
   const hasHoverActions = quickActionElements.length || contextMenuPanels.lastIndexOf.length;
-
+  //Edmar Moretti - altera a cor de fundo de embPanel__hoverActions
   return (
     <div
       onMouseOver={updateCombineHoverActions}
@@ -484,14 +484,14 @@ export const PresentationPanelHoverActions = ({
             `
             : ''}
         }
-
+        
         .embPanel__hoverActions {
           opacity: 0;
           padding: calc(${euiThemeVars.euiSizeXS} - 1px);
           display: flex;
           flex-wrap: nowrap;
 
-          background-color: ${euiThemeVars.euiColorEmptyShade};
+          background-color: #f3f1f1;
           height: ${euiThemeVars.euiSizeXL};
 
           pointer-events: all; // Re-enable pointer-events for hover actions
