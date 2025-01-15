@@ -130,17 +130,6 @@ return (
         `}
         justifyContent={'spaceBetween'}
       >
-
-        {!allowExpensiveQueries && (
-          <EuiFlexItem data-test-subj="optionsList-allow-expensive-queries-warning" grow={false}>
-            <EuiIconTip
-              type="warning"
-              color="warning"
-              content={OptionsListStrings.popover.getAllowExpensiveQueriesWarning()}
-              aria-label={OptionsListStrings.popover.getAllowExpensiveQueriesWarning()}
-            />
-          </EuiFlexItem>
-        )}
       </EuiFlexGroup>
     </EuiPopoverFooter>
   </>
